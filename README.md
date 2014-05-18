@@ -6,10 +6,18 @@ Pull requests to make the setup process or documentation smoother are more than 
 
 
 # Python
- 
+
 ## Setup
 
 ### System dependencies
+
+* Python 2.7 and development headers (python2.7-dev)
+* libxml2 and development headers (libxml2-dev)
+* libxslt1 and development headers (libxslt1-dev)
+
+On Ubuntu, run `sudo apt-get install python2.7-dev libxml2-dev libxlst1-dev`.
+
+### Python dependencies
 
 * virtualenv (`sudo easy_install virtualenv`)
 
@@ -37,12 +45,10 @@ sure you have any new dependencies or schema modifications:
     $ python manage.py syncdb --noinput           # Make sure the database schema is still filled out
     $ python manage.py runserver                  # Prove this works by visiting http://localhost:8000
 
-tc.
-
 ## Tests
 
-The tests for this project are managed by `tox`, a Python package.
-First, install `tox` via `easy_install` (or `pip`).
+The tests for this project are managed by `tox`, a Python package.  `tox` is
+included with the dependencies you activated by running `python setup.py develop`.
 
 Prior to running tox, be sure to create a `figgy/_local_tests.py` file by copying
 `figgy/_local_tests.py.example` to `figgy/_local_tests.py`.  Any modifications to the test settings

@@ -17,6 +17,8 @@ CACHES = {
     }
 }
 
+SECRET_KEY = 'fanuv^ifqvc@+nf3=differentfromproduction=^r+yob9ji'
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

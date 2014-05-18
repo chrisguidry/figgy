@@ -35,6 +35,12 @@ nosetests.xml
 .project
 .pydevproject
 
+ve
+
 /.idea/
 
 /figgy.db.sqlite3
+
+figgy/local.py
+figgy/_local_tests.py
+
