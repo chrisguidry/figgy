@@ -2,7 +2,7 @@
 # Created by David Rideout <drideout@safaribooksonline.com> on 2/7/14 4:58 PM
 # Copyright (c) 2013 Safari Books Online, LLC. All rights reserved.
 
-from storage.models import Book
+from storage.models import Book, Edition, Alias
 
 
 def process_book_element(book_element):
@@ -13,14 +13,24 @@ def process_book_element(book_element):
     :returns:
     """
 
-    book, created = Book.objects.get_or_create(pk=book_element.get('id'))
-    book.title = book_element.findtext('title')
-    book.description = book_element.findtext('description')
+    version = book_element.findtext('version') or ''
 
-    for alias in book_element.xpath('aliases/alias'):
-        scheme = alias.get('scheme')
-        value = alias.get('value')
+    aliases = [(alias.get('scheme'), alias.get('value'))
+               for alias in book_element.xpath('aliases/alias')]
+    aliases.append(('Publisher ID', book_element.get('id')))
 
-        book.aliases.get_or_create(scheme=scheme, value=value)
+    title = book_element.findtext('title')
+    description = book_element.findtext('description')
 
-    book.save()
+    # find any existing editions by any of these aliases
+    existing_edition = Edition.most_likely_edition_by_aliases(aliases)
+    if existing_edition:
+        book = existing_edition.book
+        if existing_edition.version == version:
+            return
+    else:
+        book = Book.objects.create()
+
+    new_edition = book.editions.create(title=title, description=description, version=version)
+    for scheme, value in aliases:
+        new_edition.aliases.get_or_create(scheme=scheme, value=value)
