@@ -51,11 +51,13 @@ LOGGING = {
 }
 
 NOSE_ARGS = [
-    '--with-coverage',
     '--verbose',
-    '--logging-clear-handlers',
-    '--cover-package=storage,figgy',
     '-s',
+    '--logging-clear-handlers',
+    '--with-coverage',
+    '--cover-package=storage,figgy',
+    '--cover-inclusive',
+    '--cover-tests'
 ]
 
 TESTING = True

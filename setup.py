@@ -25,11 +25,9 @@ setup(
     install_requires=[
         'Django>=1.6',
         'lxml>=3.2.0',
-        # 'html5lib',
-        # 'cssselect',
-
-        'django-nose',
-	'tox'
+        'django-nose>=1.2',
+        'tox>=1.7',
+        'mock>=1.0.1'
     ],
     entry_points="""
     # -*- Entry points: -*-

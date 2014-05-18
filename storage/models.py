@@ -22,7 +22,7 @@ class Book(BaseModel):
     description = models.TextField(blank=True, null=True, default=None, help_text="Very short description of this book.")
 
     def __unicode__(self):
-        return u"Book %s" % self.title
+        return u'Book "%s"' % self.title
 
     class Meta:
         ordering = ['title']
@@ -41,4 +41,4 @@ class Alias(BaseModel):
     scheme = models.CharField(max_length=40, help_text="The scheme of identifier")
 
     def __unicode__(self):
-        return '%s identifier for %s' % (self.scheme, self.book.title)
+        return u'%s identifier %s for %s' % (self.scheme, self.value, self.book)

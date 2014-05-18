@@ -15,7 +15,8 @@ class BookAdmin(admin.ModelAdmin):
 
     def list_aliases(self, obj):
         if obj:
-            return '<pre>%s</pre>' % '\n'.join([o.value for o in obj.aliases.all()])
+            aliases = sorted(['%s: %s' % (o.scheme, o.value) for o in obj.aliases.all()])
+            return u'<pre>%s</pre>' % '\n'.join(aliases)
 
     list_aliases.allow_tags = True
 
